@@ -48,7 +48,7 @@ KoneksiDB koneksi = new KoneksiDB();
         String nama = jTextField1.getText();
         DefaultTableModel tabel = new DefaultTableModel();
         
-    
+        tabel.addColumn("ID");
         tabel.addColumn("NIS");
         tabel.addColumn("Nama");
         tabel.addColumn("Kelas");
@@ -67,7 +67,7 @@ KoneksiDB koneksi = new KoneksiDB();
             ResultSet res = koneksi.state.executeQuery(sql);
             while (res.next()) {
                 tabel.addRow(new Object[]{
-                    
+                    res.getString("id"),
                     res.getString("nis"),
                     res.getString("nama"),
                     res.getString("kelas"),
@@ -126,6 +126,12 @@ KoneksiDB koneksi = new KoneksiDB();
         setTitle("Form Pencarian Siswa");
 
         jLabel2.setText("Cari Nama Siswa ");
+
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField2KeyReleased(evt);
+            }
+        });
 
         jTB_SISWASEARCH.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -188,6 +194,11 @@ KoneksiDB koneksi = new KoneksiDB();
         kliktable();
         this.dispose();
     }//GEN-LAST:event_jTB_SISWASEARCHMouseClicked
+
+    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
+        // TODO add your handling code here:
+        dataTable();
+    }//GEN-LAST:event_jTextField2KeyReleased
 
     /**
      * @param args the command line arguments

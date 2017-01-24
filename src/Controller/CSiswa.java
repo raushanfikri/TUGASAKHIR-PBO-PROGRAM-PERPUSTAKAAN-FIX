@@ -42,7 +42,7 @@ public class CSiswa {
      public void hapusData(MSiswa ms) {
     try {
             koneksi.koneksiDatabase();
-            String query = "delete from tbl_siswa where nis=('"+ms.getNis()+"')";
+            String query = "delete from tbl_siswa where id=('"+ms.getId()+"')";
             koneksi.state.executeUpdate(query);
             JOptionPane.showMessageDialog(null, "Data Berhasil Dihapus..");
             //koneksi.connect.close();
@@ -55,7 +55,7 @@ public class CSiswa {
      public void ubahData(MSiswa ms) {
          koneksi.koneksiDatabase();
          try {
-            //int id = mp.getIdpelanggan()
+            int id = ms.getId();
             String nis = ms.getNis();
             String nama = ms.getNama();
             String kelas= ms.getKelas();
@@ -79,7 +79,7 @@ public class CSiswa {
                     + "telepon=('"+ telepon +"'),"
                     + "tanggalregister=('"+ tanggalregister +"'),"
                     + "akhirregister=('"+ akhirregister +"')"
-                    + "where nis=('" + nis + "')";
+                    + "where id=('" + id + "')";
             koneksi.state.executeUpdate(query);
             JOptionPane.showMessageDialog(null, "Data Berhasil DiUbah..");
         } catch (SQLException e) {

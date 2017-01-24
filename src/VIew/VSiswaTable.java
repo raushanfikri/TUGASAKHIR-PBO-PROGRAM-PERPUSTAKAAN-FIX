@@ -52,7 +52,7 @@ KoneksiDB koneksi = new KoneksiDB();
         
         DefaultTableModel tabel = new DefaultTableModel();
         
-    
+        tabel.addColumn("ID");
         tabel.addColumn("NIS");
         tabel.addColumn("Nama");
         tabel.addColumn("Kelas");
@@ -71,7 +71,7 @@ KoneksiDB koneksi = new KoneksiDB();
             ResultSet res = koneksi.state.executeQuery(sql);
             while (res.next()) {
                 tabel.addRow(new Object[]{
-                    
+                    res.getString("id"),
                     res.getString("nis"),
                     res.getString("nama"),
                     res.getString("kelas"),
@@ -94,16 +94,17 @@ KoneksiDB koneksi = new KoneksiDB();
     private void kliktable(){
        try {
             int baris = jTB_SISWA.getSelectedRow();
-            jTX_NIS.setText(jTB_SISWA.getValueAt(baris, 0).toString());
-            jTX_NAMA.setText(jTB_SISWA.getValueAt(baris, 1).toString());
-            jTX_KELAS.setText(jTB_SISWA.getValueAt(baris, 2).toString());
-            jTX_JENISKELAMIN.setText(jTB_SISWA.getValueAt(baris, 3).toString());
-            jTX_TEMPATLAHIR.setText(jTB_SISWA.getValueAt(baris, 4).toString());
-            jTX_TANGGALLAHIR.setText(jTB_SISWA.getValueAt(baris, 5).toString());
-            jTX_ALAMAT.setText(jTB_SISWA.getValueAt(baris, 6).toString());
-            jTX_NOMORTELP.setText(jTB_SISWA.getValueAt(baris, 7).toString());
-            jTX_TANGGALREGISTER.setText(jTB_SISWA.getValueAt(baris, 8).toString());
-            jTX_AKHIRREGISTER.setText(jTB_SISWA.getValueAt(baris, 9).toString());
+             jTextField1 .setText(jTB_SISWA.getValueAt(baris, 0).toString());
+            jTX_NIS.setText(jTB_SISWA.getValueAt(baris, 1).toString());
+            jTX_NAMA.setText(jTB_SISWA.getValueAt(baris, 2).toString());
+            jTX_KELAS.setText(jTB_SISWA.getValueAt(baris, 3).toString());
+            jTX_JENISKELAMIN.setText(jTB_SISWA.getValueAt(baris, 4).toString());
+            jTX_TEMPATLAHIR.setText(jTB_SISWA.getValueAt(baris, 5).toString());
+            jTX_TANGGALLAHIR.setText(jTB_SISWA.getValueAt(baris, 6).toString());
+            jTX_ALAMAT.setText(jTB_SISWA.getValueAt(baris, 7).toString());
+            jTX_NOMORTELP.setText(jTB_SISWA.getValueAt(baris, 8).toString());
+            jTX_TANGGALREGISTER.setText(jTB_SISWA.getValueAt(baris, 9).toString());
+            jTX_AKHIRREGISTER.setText(jTB_SISWA.getValueAt(baris, 10).toString());
             
        } catch (Exception e) {
        }
@@ -111,7 +112,7 @@ KoneksiDB koneksi = new KoneksiDB();
     
     private void ubah(){
          try {
-            //int id  = Integer.parseInt(jTX_ID.getText());
+           int id  = Integer.parseInt(jTextField1 .getText());
             String nis = jTX_NIS.getText();
             String nama =jTX_NAMA.getText();
             String kelas=jTX_KELAS.getText();
@@ -123,7 +124,7 @@ KoneksiDB koneksi = new KoneksiDB();
             String tanggalregister = jTX_TANGGALREGISTER.getText();
             String akhirregister = jTX_AKHIRREGISTER.getText();
 
-            //mt.setId(id);
+            mb.setId(id);
             mb.setNis(nis);
             mb.setNama(nama);
             mb.setKelas(kelas);
@@ -147,9 +148,9 @@ KoneksiDB koneksi = new KoneksiDB();
     
     public void hapus(){
        try {
-            String nis = jTX_NIS.getText();
+            int id = Integer.parseInt(jTextField1 .getText());
             
-            mb.setNis(nis);//mt didapat dari pembuatan objek, dari kelas ModelTeman (instansiasi dilakukan diatas)
+            mb.setId(id);//mt didapat dari pembuatan objek, dari kelas ModelTeman (instansiasi dilakukan diatas)
             
             cb.hapusData(mb);//ct didapat dari pembuatan objek, dari kelas ControllerTeman (instansiasi dilakukan diatas)
             
@@ -195,6 +196,8 @@ KoneksiDB koneksi = new KoneksiDB();
         jBTN_EDIT = new javax.swing.JButton();
         jBTN_DELETE = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Form Daftar Siswa");
@@ -266,6 +269,15 @@ KoneksiDB koneksi = new KoneksiDB();
         jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel11.setText("Daftar Siswa ");
 
+        jLabel12.setText("ID");
+
+        jTextField1.setEnabled(false);
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -281,6 +293,9 @@ KoneksiDB koneksi = new KoneksiDB();
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addGap(137, 137, 137))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -293,7 +308,8 @@ KoneksiDB koneksi = new KoneksiDB();
                                             .addComponent(jLabel4)
                                             .addComponent(jLabel3)
                                             .addComponent(jLabel2)
-                                            .addComponent(jLabel1)))
+                                            .addComponent(jLabel1)
+                                            .addComponent(jLabel12)))
                                     .addComponent(jLabel9)
                                     .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -307,11 +323,9 @@ KoneksiDB koneksi = new KoneksiDB();
                                     .addComponent(jTX_NOMORTELP, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTX_TANGGALLAHIR, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTX_JENISKELAMIN, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTX_AKHIRREGISTER, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(119, 119, 119)))
-                        .addGap(18, 18, 18)
+                                    .addComponent(jTX_AKHIRREGISTER, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -323,6 +337,10 @@ KoneksiDB koneksi = new KoneksiDB();
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel1)
                                     .addComponent(jTX_NIS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -401,6 +419,10 @@ KoneksiDB koneksi = new KoneksiDB();
         bersih();
     }//GEN-LAST:event_jBTN_DELETEActionPerformed
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -442,6 +464,7 @@ KoneksiDB koneksi = new KoneksiDB();
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -462,5 +485,6 @@ KoneksiDB koneksi = new KoneksiDB();
     private javax.swing.JTextField jTX_TANGGALLAHIR;
     private javax.swing.JTextField jTX_TANGGALREGISTER;
     private javax.swing.JTextField jTX_TEMPATLAHIR;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

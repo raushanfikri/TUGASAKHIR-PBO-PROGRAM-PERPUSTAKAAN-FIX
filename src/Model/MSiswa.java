@@ -11,7 +11,16 @@ package Model;
  */
 public class MSiswa {
     String nis, nama,kelas, jeniskelamin, kotalahir, tanggallahir, alamat, telepon, tanggalregister, akhirregister;
+    int id;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public String getNis() {
         return nis;
     }
